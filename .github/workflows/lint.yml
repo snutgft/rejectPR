@@ -1,0 +1,23 @@
+name: Lint
+on: [push]
+
+jobs:
+  build:
+    name: Check style
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v1
+
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.10.*'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Check style with prettier
+      run: npm run format-check
+
+    - name: Check build artefact has been checked in
+      run: npm run build && git diff --quiet
