@@ -1,0 +1,13 @@
+name: 'Dismiss code reviews from collaborators'
+description: 'Dismiss code reviews on pull requests from anyone worked on it.'
+branding:
+  icon: 'thumbs-down'
+  color: 'red'
+author: 'peckjon'
+inputs:
+  github-token:
+    description: 'The GITHUB_TOKEN secret or PAT'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
