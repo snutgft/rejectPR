@@ -1,5 +1,5 @@
 {
-  "name": "@peckjon/reject-pr-approval-from-committer",
+  "name": "@snutgft/rejectPR",
   "version": "1.0.0",
   "description": "Do not allow a committer on a GitHub pull request to approve the PR.",
   "main": "dist/main.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/peckjon/reject-pr-approval-from-committer.git"
+    "url": "git+https://github.com/snutgft/rejectPR.git"
   },
   "keywords": [
     "actions",
@@ -21,7 +21,7 @@
     "github",
     "GitHub"
   ],
-  "author": "peckjon",
+  "author": "snutgft",
   "contributors": [
     "Cognite AS",
     "hmarr",
@@ -30,9 +30,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/peckjon/reject-pr-approval-from-committer/issues"
+    "url": "https://github.com/snutgft/rejectPR/issues"
   },
-  "homepage": "https://github.com/peckjon/reject-pr-approval-from-committer#readme",
+  "homepage": "https://github.com/snutgft/rejectPR#readme",
   "dependencies": {
     "@actions/core": "^1.9.1",
     "@actions/github": "^5.1.0"
