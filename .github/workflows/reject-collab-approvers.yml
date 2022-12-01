@@ -11,6 +11,6 @@ jobs:
     if: github.event.review.state == 'approved'
     steps:
       - name: Dismiss code reviews from collaborators
-        uses: snutgft/rejectPR@master
+        uses: snutgft/rejectPR@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
