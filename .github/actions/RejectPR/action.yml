@@ -10,4 +10,5 @@ inputs:
     required: true
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: './RejectPR/dist/index.js'
+  
