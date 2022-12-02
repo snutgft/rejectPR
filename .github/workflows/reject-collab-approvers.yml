@@ -11,10 +11,9 @@ jobs:
     if: github.event.review.state == 'approved'
     steps:
 
-      - name: Checkout code
-        uses: action/checkout@v2
+      
 
       - name: Dismiss code reviews from collaborators
-        uses: ./.github/actions/RejectPR
+        uses: ./.github/actions/RejectPR@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
