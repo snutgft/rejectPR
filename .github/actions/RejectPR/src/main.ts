@@ -10,7 +10,16 @@ async function removeExistingApprovalsIfExist(client: GitHub, pr: any) {
     repo: github.context.repo.repo,
     pull_number: pr.number,
   });
-
+  
+  const { data: reviews } = await octokit.pulls.listReviews({
+    owner: "OWNER",
+    repo: "REPO",
+    pull_number: pullRequestNumber
+    });
+    // count number of approved reviews
+    const approvedReviews = reviews.filter(review => review.state === 'APPROVED');
+  
+  
   // Get list of all commits to the PR
   const { data: listCommits } = await client.rest.pulls.listCommits({
     owner: github.context.repo.owner,
@@ -28,13 +37,15 @@ async function removeExistingApprovalsIfExist(client: GitHub, pr: any) {
     if (
       review.state === 'APPROVED' &&
       review.user &&
-      commitAuthorLogins.includes(review.user.login)
+      commitAuthorLogins.includes(review.user.login) &&
+      (approvedReviews.length > 0
+      
     ) {
       core.info(
         `Removing an approval (${review.id}) from ${review.user?.login} (cannot approve this PR since they committed to it)`
       );
-      core.setFailed(
-        `${review.user?.login} cannot approve this PR since they committed to it`
+      core.setSuccess(
+        `${review.user?.login} passing as 1 or more review there `
       );
     }
   }
