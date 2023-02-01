@@ -389,7 +389,7 @@ function removeExistingApprovalsIfExist(client, pr) {
           .filter(review => review.state === "APPROVED")
           .map(review => review.user.login)
         ));
-
+        const uniqueApproverslength = uniqueApprovers.length
         // Get list of all commits to the PR
         const { data: listCommits } = yield client.rest.pulls.listCommits({
             owner: github.context.repo.owner,
@@ -412,7 +412,7 @@ function removeExistingApprovalsIfExist(client, pr) {
                 review.user &&
                 //uniqueApprovers > numUniqueCommitters &&
                 commitAuthorLogins.includes(review.user.login)) {
-                core.info(`Removing an approval (${review.id}) from ${(_a = review.user) === null || _a === void 0 ? void 0 : _a.login} (cannot approve this PR since they committed to it). There are only (${uniqueApprovers}) approvals and (${numUniqueCommitters}) committers`);
+                core.info(`Removing an approval (${review.id}) from ${(_a = review.user) === null || _a === void 0 ? void 0 : _a.login} (cannot approve this PR since they committed to it). There are only (${uniqueApproverslength}) approvals and (${numUniqueCommitters}) committers`);
                 core.setFailed(`${(_c = review.user) === null || _c === void 0 ? void 0 : _c.login} cannot approve this PR since they committed to it`);
             }
         }
