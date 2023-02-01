@@ -395,9 +395,9 @@ function removeExistingApprovalsIfExist(client, pr) {
         });
 
         // Get the list of unique committers
-        const uniqueCommitters = Array.from(new Set(commits.data.map(commit => commit.commit.author.email)));
+        const uniqueCommitters = Array.from(new Set(listCommits.map(commit => commit.commit.author.email)));
         const numUniqueCommitters = uniqueCommitters.length;
-        
+                
         // List logins of all commit authors on the PR
         var commitAuthorLogins = listCommits.map(function (commit) {
             var _a;
