@@ -410,7 +410,7 @@ function removeExistingApprovalsIfExist(client, pr) {
         for (let review of listReviews) {
             if (review.state === 'APPROVED' &&
                 review.user &&
-                //uniqueApprovers > numUniqueCommitters &&
+                uniqueApproverslength < numUniqueCommitters &&
                 commitAuthorLogins.includes(review.user.login)) {
                 core.info(`Removing an approval (${review.id}) from ${(_a = review.user) === null || _a === void 0 ? void 0 : _a.login} (cannot approve this PR since they committed to it). There are only (${uniqueApproverslength}) approvals and (${numUniqueCommitters}) committers`);
                 core.setFailed(`${(_c = review.user) === null || _c === void 0 ? void 0 : _c.login} cannot approve this PR since they committed to it`);
