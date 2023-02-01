@@ -385,7 +385,7 @@ function removeExistingApprovalsIfExist(client, pr) {
         });
         
         // Count the number of unique approvals
-        const uniqueApprovers = Array.from(new Set(listReviews.data
+        const uniqueApprovers = Array.from(new Set(listReviews
           .filter(review => review.state === "APPROVED")
           .map(review => review.user.login)
         ));
