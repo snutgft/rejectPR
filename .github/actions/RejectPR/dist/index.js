@@ -385,7 +385,7 @@ function removeExistingApprovalsIfExist(client, pr) {
         });
         
         // Count the number of approvals
-        const numApprovals = reviews.data.filter(review => review.state === "APPROVED").length;
+        const numApprovals = listReviews.data.filter(review => review.state === "APPROVED").length;
 
         // Get list of all commits to the PR
         const { data: listCommits } = yield client.rest.pulls.listCommits({
@@ -397,6 +397,7 @@ function removeExistingApprovalsIfExist(client, pr) {
         // Get the list of unique committers
         const uniqueCommitters = Array.from(new Set(commits.data.map(commit => commit.commit.author.email)));
         const numUniqueCommitters = uniqueCommitters.length;
+        
         // List logins of all commit authors on the PR
         var commitAuthorLogins = listCommits.map(function (commit) {
             var _a;
