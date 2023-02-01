@@ -385,7 +385,7 @@ function removeExistingApprovalsIfExist(client, pr) {
         });
         
         // Count the number of approvals
-        const numApprovals = listReviews.data.filter(review => review.state === "APPROVED").length;
+        const numApprovals = listReviews.filter(review => review.state === "APPROVED").length;
 
         // Get list of all commits to the PR
         const { data: listCommits } = yield client.rest.pulls.listCommits({
