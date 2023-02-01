@@ -400,13 +400,6 @@ function removeExistingApprovalsIfExist(client, pr) {
                 review.user &&
                 commitAuthorLogins.includes(review.user.login)) {
                 core.info(`Removing an approval (${review.id}) from ${(_a = review.user) === null || _a === void 0 ? void 0 : _a.login} (cannot approve this PR since they committed to it)`);
-                const dismissResponse = yield client.rest.pulls.dismissReview({
-                    owner: github.context.repo.owner,
-                    repo: github.context.repo.repo,
-                    pull_number: pr.number,
-                    review_id: review.id,
-                    message: `${(_b = review.user) === null || _b === void 0 ? void 0 : _b.login} cannot approve this PR since they committed to it`,
-                });
                 core.debug(`dismissResponse: ${JSON.stringify(dismissResponse)}`);
                 core.setFailed(`${(_c = review.user) === null || _c === void 0 ? void 0 : _c.login} cannot approve this PR since they committed to it`);
             }
