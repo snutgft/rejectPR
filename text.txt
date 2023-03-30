@@ -1,0 +1,77 @@
+parameters:
+- name: environment
+  type: string
+  default: 'dev,prod'
+
+- name: db
+  type: boolean
+  default: false
+
+- name: web
+  type: boolean
+  default: false
+
+- name: client
+  type: boolean
+  default: false
+
+- name: dbbranch
+  type: string
+  default: 'master'
+
+- name: webbranch
+  type: string
+  default: 'master'
+
+- name: clientbranch
+  type: string
+  default: 'master'
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $mapping = @{
+        "dev" = @{
+          "db" = 1
+          "web" = 2
+          "client" = 3
+        }
+        "prod" = @{
+          "db" = 4
+          "web" = 5
+          "client" = 6
+        }
+      }
+      
+      $selectedServices = @{}
+      
+      $parameters = @{
+          "db" = "${{ parameters.db }}"
+          "web" = "${{ parameters.web }}"
+          "client" = "${{ parameters.client }}"
+          "dbbranch" = "${{ parameters.dbbranch }}"
+          "webbranch" = "${{ parameters.webbranch }}"
+          "clientbranch" = "${{ parameters.clientbranch }}"
+      }
+      
+      foreach ($key in $parameters.Keys) {
+          if ($parameters[$key] -eq $true) {
+              $selectedServices[$key] = $parameters[$key + "Branch"]
+          }
+      }
+      
+      $environments = "${{ parameters.environment }}"
+      $singleEnvs = $environments -split ","
+      
+      foreach ($environment in $singleEnvs) {
+          foreach ($service in $selectedServices.Keys) {
+              if ($mapping[$environment].ContainsKey($service)) {
+                  Write-Host "triggering build for $($mapping[$environment][$service]) : $service : $environment using branch $($selectedServices[$service])"
+              }
+              else {
+                  Write-Host "Service '$service' not found in environment '$environment'"
+              }
+          }
+      }
